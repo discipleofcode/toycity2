@@ -44,6 +44,40 @@ def print_products_report(products_hash)
   end
 end
 
+def print_brands_report(products_hash)
+  brands_hash = {}
+  products_hash["items"].each do |toy|
+    brands_hash[toy["brand"]] = 1
+  end
+  
+  brands_hash.each do |name, brand|
+	
+	products = products_hash["items"].select{|toy| toy["brand"] == name}
+	
+	brandsToysStock = 0
+	brandsPriceSum = 0
+	brandsTotalSales = 0
+	products.each do |product|
+	  brandsToysStock += product["stock"]
+	  brandsPriceSum += product["full-price"].to_f
+	  
+	  totalProductSales = product["purchases"].inject(0) {|sum, purchase| sum + purchase["price"]}
+	  brandsTotalSales += totalProductSales
+	end
+	brandsAvgProductPrice = brandsPriceSum / products.length
+	
+	### Displaying now
+	
+	puts ""
+	puts name
+	puts "********************"
+	puts "Number of Products: " + brandsToysStock.to_s
+	puts "Average Product Price: $" + sprintf('%.2f', brandsAvgProductPrice)
+	puts "Total Sales: $" + sprintf('%.2f', brandsTotalSales)
+	
+  end
+end
+
 # Print "Sales Report" in ascii art
 
 print_ascii_art('Sales Report')
@@ -76,3 +110,5 @@ print_ascii_art('Brands')
 	# Count and print the number of the brand's toys we stock
 	# Calculate and print the average price of the brand's toys
 	# Calculate and print the total sales volume of all the brand's toys combined
+
+print_brands_report(products_hash)
