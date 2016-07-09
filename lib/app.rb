@@ -10,6 +10,40 @@ def print_ascii_art(text)
   puts a.asciify(text)
 end
 
+# print horizontal line
+def print_hr(length = 20)
+  puts "*" * length
+end
+
+def print_products_report(products_hash)
+  products_hash["items"].each do |toy|
+  
+    name = toy["title"]
+	price = toy["full-price"].to_f
+	totalPurchases = toy["purchases"].length
+	
+	totalSales = toy["purchases"].inject(0) {|sum, purchase| sum + purchase["price"]}
+	
+	avgPrice = totalSales / totalPurchases
+	avgDiscount = price - avgPrice
+	avgDiscountPercentage = (avgDiscount / price) * 100
+	
+	### Displaying now
+	
+	puts
+	puts name
+    print_hr
+	puts "Price: $" + price.to_s
+	puts "Total purchases: " + totalPurchases.to_s
+	puts "Total sales: $" + totalSales.to_s
+	puts "Average price: $" + avgPrice.to_s
+	puts "Average discount: $" + sprintf('%.2f', avgDiscount)
+	puts "Average discount (percentage): " + sprintf('%.2f%', avgDiscountPercentage)
+    print_hr
+
+  end
+end
+
 # Print "Sales Report" in ascii art
 
 print_ascii_art('Sales Report')
@@ -31,6 +65,8 @@ print_ascii_art('Products')
 	# Calculate and print the average price the toy sold for
 	# Calculate and print the average discount (% or $) based off the average sales price
 
+print_products_report(products_hash)	
+	
 # Print "Brands" in ascii art
 
 print_ascii_art('Brands')
