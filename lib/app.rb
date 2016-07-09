@@ -1,13 +1,24 @@
 require 'json'
+require 'artii'
+
 path = File.join(File.dirname(__FILE__), '../data/products.json')
 file = File.read(path)
 products_hash = JSON.parse(file)
 
+def print_ascii_art(text)
+  a = Artii::Base.new
+  puts a.asciify(text)
+end
+
 # Print "Sales Report" in ascii art
+
+print_ascii_art('Sales Report')
 
 # Print today's date
 
 # Print "Products" in ascii art
+
+print_ascii_art('Products')
 
 # For each product in the data set:
 	# Print the name of the toy
@@ -18,6 +29,8 @@ products_hash = JSON.parse(file)
 	# Calculate and print the average discount (% or $) based off the average sales price
 
 # Print "Brands" in ascii art
+
+print_ascii_art('Brands')
 
 # For each brand in the data set:
 	# Print the name of the brand
