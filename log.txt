@@ -1,3 +1,39 @@
+commit 3fef9503f99d90056f26aa68bf6af6b03c3cad0a
+Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
+Date:   Sun Jul 10 00:05:59 2016 +0200
+
+    added report.txt
+
+commit 85922221f19bf1c7e926b8175e77e1aaac00b828
+Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
+Date:   Sun Jul 10 00:03:23 2016 +0200
+
+    further refactoring - splitting to functions with max 10 lines of code
+
+commit f75d9d218ae478019990a57aa6db5590ed9e6804
+Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
+Date:   Sat Jul 9 23:24:40 2016 +0200
+
+    brands report printing
+
+commit 56b8f080d3e12288aced461ec9643c532d2f7359
+Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
+Date:   Sat Jul 9 23:16:44 2016 +0200
+
+    products report printing
+
+commit bbbeb02b1ca9550a8193607d666db5c7272d3204
+Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
+Date:   Sat Jul 9 22:54:57 2016 +0200
+
+    printing today's date
+
+commit 68d0e3a6fbc8964b028827c4840b59fcc03800cc
+Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
+Date:   Sat Jul 9 22:44:21 2016 +0200
+
+    print ascii art headings
+
 commit a4baebc5bcfefb09dbd3c6bd1c55122b63b51c22
 Author: Rafael Piazdecki <rafael.piazdecki@b2net.pl>
 Date:   Sat Jul 9 22:01:04 2016 +0200
