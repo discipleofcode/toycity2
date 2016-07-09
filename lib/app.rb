@@ -16,6 +16,9 @@ print_ascii_art('Sales Report')
 
 # Print today's date
 
+time = Time.new
+puts print_ascii_art(time.strftime("%d / %m / %Y"))
+
 # Print "Products" in ascii art
 
 print_ascii_art('Products')
