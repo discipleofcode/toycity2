@@ -7,10 +7,10 @@ require 'artii'
 ### safer by just returning it to local variable. Normally I would use maybe Singleton with some consts
 ### but I was not sure if I can define class in this assignment. Well, it works...
 def get_products_hash
-  !path ||= File.join(File.dirname(__FILE__), '../data/products.json')
-  !file ||= File.read(path)
-  !global_products_hash ||= JSON.parse(file)
-  return global_products_hash
+  !$path ||= File.join(File.dirname(__FILE__), '../data/products.json')
+  !$file ||= File.read($path)
+  !$global_products_hash ||= JSON.parse($file)
+  return $global_products_hash
 end
 
 ### now I'll try just global variable approach
