@@ -1,20 +1,31 @@
 require 'json'
 require 'artii'
 
-path = File.join(File.dirname(__FILE__), '../data/products.json')
-file = File.read(path)
-products_hash = JSON.parse(file)
-
 ### common methods
+
+### I'm totally not sure about it - I tried to somehow make use of this global variable
+### safer by just returning it to local variable. Normally I would use maybe Singleton with some consts
+### but I was not sure if I can define class in this assignment. Well, it works...
+def get_products_hash
+  !path ||= File.join(File.dirname(__FILE__), '../data/products.json')
+  !file ||= File.read(path)
+  !global_products_hash ||= JSON.parse(file)
+  return global_products_hash
+end
+
+### now I'll try just global variable approach
+def set_global_report_file
+  $report = File.new("../report.txt", "w")
+end
 
 def print_ascii_art(text)
   a = Artii::Base.new
-  puts a.asciify(text)
+  $report.puts a.asciify(text)
 end
 
 # print horizontal line
 def print_hr(length = 20)
-  puts "*" * length
+  $report.puts "*" * length
 end
 
 ### end of common methods
@@ -22,15 +33,15 @@ end
 ### Products methods
 
 def print_products_report(name, price, totalPurchases, totalSales, avgPrice, avgDiscount, avgDiscountPercentage)
-  puts
-  puts name
+  $report.puts
+  $report.puts name
   print_hr
-  puts "Price: $" + price.to_s
-  puts "Total purchases: " + totalPurchases.to_s
-  puts "Total sales: $" + totalSales.to_s
-  puts "Average price: $" + avgPrice.to_s
-  puts "Average discount: $" + sprintf('%.2f', avgDiscount)
-  puts "Average discount (percentage): " + sprintf('%.2f%', avgDiscountPercentage)
+  $report.puts "Price: $" + price.to_s
+  $report.puts "Total purchases: " + totalPurchases.to_s
+  $report.puts "Total sales: $" + totalSales.to_s
+  $report.puts "Average price: $" + avgPrice.to_s
+  $report.puts "Average discount: $" + sprintf('%.2f', avgDiscount)
+  $report.puts "Average discount (percentage): " + sprintf('%.2f%', avgDiscountPercentage)
   print_hr
 end
 
@@ -57,21 +68,16 @@ end
 ### Brands methods
 
 def get_unique_brands(products_hash)
-  brands_hash = {}
-  products_hash["items"].each do |toy|
-    brands_hash[toy["brand"]] = 1
-  end
-  
-  return brands_hash
+  products_hash["items"].collect {|toy| toy["brand"]}.uniq
 end
 
 def print_brands_report(brandsVariables, name)
-  puts ""
-  puts name
+  $report.puts ""
+  $report.puts name
   print_hr
-  puts "Number of Products: " + brandsVariables["brandsToysStock"].to_s
-  puts "Average Product Price: $" + sprintf('%.2f', brandsVariables["brandsAvgProductPrice"])
-  puts "Total Sales: $" + sprintf('%.2f', brandsVariables["brandsTotalSales"])
+  $report.puts "Number of Products: " + brandsVariables["brandsToysStock"].to_s
+  $report.puts "Average Product Price: $" + sprintf('%.2f', brandsVariables["brandsAvgProductPrice"])
+  $report.puts "Total Sales: $" + sprintf('%.2f', brandsVariables["brandsTotalSales"])
 end
 
 def calculate_brands_variables(products)
@@ -105,9 +111,7 @@ end
 
 ### end of brands methods
 
-### initialization method
-
-def start(products_hash)
+def create_report(products_hash)
   # Print "Sales Report" in ascii art
  
   print_ascii_art('Sales Report')
@@ -115,7 +119,7 @@ def start(products_hash)
   # Print today's date
 
   time = Time.new
-  puts print_ascii_art(time.strftime("%d / %m / %Y"))
+  $report.puts print_ascii_art(time.strftime("%d / %m / %Y"))
 
   # Print "Products" in ascii art
 
@@ -144,5 +148,20 @@ def start(products_hash)
   generate_brands_report(products_hash)
 end
 
-start(products_hash)
+### initialization method
+
+def start(products_hash = get_products_hash)
+
+  ### not sure if this line should go in create_report method, its just
+  ### that I think this start method is pretty useless (but I had to have it as requirement)
+  ### Am I missing something here?
+  set_global_report_file
+  
+  create_report(products_hash)
+ 
+end
+
+### main body of app :P
+
+start
 
